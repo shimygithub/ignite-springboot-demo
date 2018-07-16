@@ -1,0 +1,55 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="ignite.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
+		<!-- <property name="clientMode" value="true" /> -->
+		<property name="gridLogger">
+			<bean class="org.apache.ignite.logger.slf4j.Slf4jLogger" />
+		</property>
+		<property name="peerClassLoadingEnabled" value="false" />
+
+		<property name="gridName" value="bausch-lomb-collector" />
+		<property name="localHost" value="127.0.0.1" />
+
+		<property name="discoverySpi">
+			<bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+				<property name="localPort" value="48500"/>
+				<property name="ipFinder">
+					<bean
+							class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
+						<property name="addresses">
+							<list>
+								<value>127.0.0.1:48500..48510</value>
+							</list>
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</property>
+		<property name="dataStorageConfiguration">
+		    <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
+		      <property name="defaultDataRegionConfiguration">
+		        <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
+		          <property name="persistenceEnabled" value="true"/>
+		        </bean>
+		      </property>
+		    </bean>
+		  </property>
+		<property name="communicationSpi">
+			<bean class="org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi">
+				<property name="localPort" value="48100"/>
+			</bean>
+		</property>
+
+		<property name="cacheConfiguration">
+			<bean class="org.apache.ignite.configuration.CacheConfiguration">
+				<property name="name" value="igniteBauschlombCache" />
+				<!--
+					<property name="offHeapMaxMemory" value="0" />
+				-->
+			</bean>
+		</property>
+	</bean>
+</beans>
