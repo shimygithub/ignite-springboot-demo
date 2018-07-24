@@ -25,11 +25,11 @@ public class IgController {
 	
 	@Autowired
 	@Qualifier("igCache")
-	IgniteCache<Integer, Book> ic;
+	IgniteCache<String, Book> ic;
 	
-	@Autowired
-	@Qualifier("ignite")
-	Ignite ignite;
+//	@Autowired
+//	@Qualifier("ignite")
+//	Ignite ignite;
 	
 	@RequestMapping("/igTest")
 	@ResponseBody
@@ -43,7 +43,7 @@ public class IgController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Book b1=new Book(1, 43.32, "精髓", "史林凡");
+		Book b1=new Book("1", 43.32, "精髓", "史林凡");
 		ic.put(b1.getBookId(), b1);
 		ic.get(b1.getBookId());
 		System.out.println("取出的b1的值为：");
@@ -53,11 +53,11 @@ public class IgController {
 
 		
 		
-		Book b2=new Book(2, 44.32, "精髓2", "史林凡tow");
-		Book b3=new Book(3, 45.32, "精髓3", "史林凡three");
-		Book b4=new Book(4, 46.32, "精髓4", "史林凡four");
-		Book b5=new Book(5, 47.32, "精髓5", "史林凡five");
-		Map<Integer, Book> map=new HashMap<>();
+		Book b2=new Book("2", 44.32, "精髓2", "史林凡tow");
+		Book b3=new Book("3", 45.32, "精髓3", "史林凡three");
+		Book b4=new Book("4", 46.32, "精髓4", "史林凡four");
+		Book b5=new Book("5", 47.32, "精髓5", "史林凡five");
+		Map<String, Book> map=new HashMap<>();
 		map.put(b2.getBookId(), b2);
 		map.put(b3.getBookId(), b3);
 		map.put(b4.getBookId(), b4);
@@ -70,6 +70,9 @@ public class IgController {
 		
 		
 //		IgniteFuture<Map<Integer, Book>> ifu=ic.getAllAsync(map.keySet());
+////		ifu.listen(bk ->{
+//////			bk.get()
+////		});
 //		map=ifu.get();
 //		p.println("少时诵诗书所所所所所所");
 //		System.out.println(map.get(b2.getBookId())+"===="+map.get(b2.getBookPrice())+"======"+map.get(b2.getBookName())+"===="+map.get(b2.getBookAuther()));

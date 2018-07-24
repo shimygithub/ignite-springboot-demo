@@ -1,28 +1,22 @@
-package com.bee.sample.ch1.ignite.vo;
+package com.bee.sample.ch1.vo;
 
 
-import org.apache.ignite.cache.query.annotations.QuerySqlField;
-
-public class Book {
+public class Book1 {
 	
-	@QuerySqlField
 	private String bookId;
 	
-	@QuerySqlField
 	private double bookPrice;
 	
-	@QuerySqlField
 	private String bookName;
 	
-	@QuerySqlField
 	private String bookAuther;
 
 	
-	public Book() {
+	public Book1() {
 		
 	}
 	
-	public Book(String id,double p,String bn,String ba) {
+	public Book1(String id,double p,String bn,String ba) {
 		this.bookId=id;
 		this.bookPrice=p;
 		this.bookName=bn;

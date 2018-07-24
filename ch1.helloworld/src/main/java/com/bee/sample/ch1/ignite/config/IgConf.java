@@ -23,14 +23,17 @@ public class IgConf {
 	}
 	
 	@Bean("igCache")
-	public IgniteCache<Integer, Book>  getBookCache(Ignite ignite){
-		CacheConfiguration<Integer, Book> cacheCfg = new CacheConfiguration<>(Book.class.getSimpleName()+ "Cache");
-		cacheCfg.setIndexedTypes(Integer.class,Book.class);
-		 IgniteCache<Integer, Book> BookCache = ignite.getOrCreateCache(cacheCfg);
+	public IgniteCache<String, Book>  getBookCache(Ignite ignite){
+		CacheConfiguration<String, Book> cacheCfg = new CacheConfiguration<>(Book.class.getSimpleName()+ "Cache");
+		cacheCfg.setIndexedTypes(String.class,Book.class);
+		 IgniteCache<String, Book> BookCache = ignite.getOrCreateCache(cacheCfg);
 
 		return BookCache;
 		
 	}
+	
+	
+	
 	
 
 }

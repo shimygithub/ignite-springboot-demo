@@ -1,0 +1,49 @@
+一、	-------------------------------------------------------------------------------------------------------------------------------
+	问题一：集成问题：
+	quartz和springboot集成的时候为了在JOB中使用Spring管理的Bean，需要重新定义一个Job Factory：
+	
+	@Component
+	public class MyJobFactory extends AdaptableJobFactory {
+	    
+	    @Autowired
+	    private AutowireCapableBeanFactory capableBeanFactory;
+	
+	    @Override
+	    protected Object createJobInstance(TriggerFiredBundle bundle) throws Exception {
+	        // 调用父类的方法
+	        Object jobInstance = super.createJobInstance(bundle);
+	        // 进行注入
+	        capableBeanFactory.autowireBean(jobInstance);
+	        return jobInstance;
+	    }
+	}
+	然后在JOB中就可以使用Spring管理的Bean了
+	
+	
+	
+	
+	问题2：quartz中group用处？
+		name+group才是组成一个唯一key，通过key可以更新、停止任务等等。
+		group的其他应用：	可以通过groupname来获取其下的所有jobkey
+		
+	
+	
+	
+	
+二、	-------------------------------------------------------------------------------------------------------------------------------
+
+
+	入口类前边加上注解     @PropertySource(value={"file:conf/application.properties"})
+	来读取配置的属性文件
+	
+	
+	
+	
+	
+	
+	
+	
+	
+四、	-------------------------------------------------------------------------------------------------------------------------------
+	
+	quartz中每个任务JobDetail可以绑定多个Trigger，但一个Trigger只能绑定一个任务，这种绑定关系由四种接口来执行
